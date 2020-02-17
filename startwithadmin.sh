@@ -11,4 +11,4 @@ docker-compose exec php php artisan admin:import helpers
 # install log-viewer plugin
 docker-compose run --rm composer require laravel-admin-ext/log-viewer
 docker-compose exec php php artisan admin:import log-viewer
-cp admin_conf/filesystem.php src/config/
+cp admin_conf/filesystems.php src/config/
