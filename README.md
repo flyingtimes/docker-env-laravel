@@ -1,8 +1,30 @@
 # docker-env-laravel
 这是一个干净的laravel容器化开发环境。同时为了便于国内用户开发，php、npm、composer容器里面已经设置好了阿里云镜像源。
 
+## 快速开始
 
-## 使用说明
+运行quickstart.sh，其内容包含以下几部分：
+php开发环境的建立
+```sh
+# 本地编译容器环境
+docker-compose build
+# 运行容器环境
+docker-compose up -d
+```
+laravel基础功能导入
+```sh
+# 创建项目目录
+mkdir src
+# 调用composer容器，运行laravel初始化命令，将自动通过阿里云镜像源拉取初始化代码
+docker-compose run --rm composer laravel/laravel .
+# 在镜像里，laravel的配置文件中数据库连接配置需要做响应的修改 127.0.0.1->mysql，库名、用户名、密码也要根据docker-compose.yml的配置做相应修改才行
+docker-compose run --rm composer sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
+docker-compose run --rm composer sed -i "s/DB_DATABASE=/DB_DATABASE=laravel/g" /app/.env
+docker-compose run --rm composer sed -i "s/DB_USERNAME=/DB_USERNAME=root/g" /app/.env
+docker-compose run --rm composer sed -i "s/DB_PASSWORD=/DB_PASSWORD=secret/g" /app/.env
+```
+
+## 项目架构说明
 
 ### 目录结构
 src/    存放laravel项目的代码
