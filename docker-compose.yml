@@ -5,7 +5,7 @@ networks:
 
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: nginx
     container_name: nginx
     ports:
       - "8080:80"
@@ -19,7 +19,7 @@ services:
       - laravel
 
   mysql:
-    image: mysql:5.7.22
+    image: mysql:5.7
     container_name: mysql
     restart: unless-stopped
     tty: true
@@ -38,11 +38,34 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: php.dockerfile
     container_name: php
     volumes:
       - ./src:/var/www
     ports:
       - "9000:9000"
     networks:
+      - laravel
+
+  composer:
+    build:
+      context: .
+      dockerfile: composer.dockerfile
+    container_name: composer
+    volumes:
+      - ./src:/var/www
+    working_dir: /var/www
+    networks:
+      - laravel
+
+  npm:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    container_name: npm
+    volumes: 
+      - ./src:/var/www
+    working_dir: /var/www
+    entrypoint: ['npm']
+    networks: 
       - laravel
