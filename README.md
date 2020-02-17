@@ -25,10 +25,15 @@ docker-compose run --rm composer sed -i "s/DB_PASSWORD=/DB_PASSWORD=rootsecret/g
 ## 项目架构说明
 
 ### 目录结构
+
 src/    存放laravel项目的代码
+
 mysqldb/    存放mysql的数据
+
 nginx/  nginx配置文件
+
 docker-compose.yml  docker-compose 配置文件
+
 *.dockerfile    几个容器都加上了镜像地址，相对于默认容器做了响应的修改
 
 ### nginx
