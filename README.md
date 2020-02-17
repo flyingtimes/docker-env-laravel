@@ -1,14 +1,30 @@
-# docker-compose-laravel
-A pretty simplified docker-compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://medium.com/@aschmelyun).
+# docker-env-laravel
+这是一个干净的laravel容器化开发环境。同时为了便于国内用户开发，php、npm、composer容器里面已经设置好了阿里云镜像源。
 
 
-## Usage
+## 使用说明
 
-To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repository. Add your entire Laravel project to the `src` folder, then open a terminal and from this cloned respository's root run `docker-compose build && docker-compose up -d`. 
+### 目录结构
+src/    存放laravel项目的代码
+nginx/  nginx配置文件
+docker-compose.yml  docker-compose 配置文件
+*.dockerfile    几个容器都加上了镜像地址，相对于默认容器做了响应的修改
 
-Open up your browser of choice to [http://localhost:8080](http://localhost:8080) and you should see your Laravel app running as intended. 
+### nginx
+负责开放8080端口，并将所有请求入口转发到容器内的/var/www/public（对应于本项目src/public)，php的响应会转发到php:9000处理。
 
-Containers created and their ports are as follows:
+### php
+通过9000端口响应所有请求，laravel项目文件都在src/ 下
+
+### composer
+一个独立的容器，用来方便没有本地化安装composer的用户调用composer命令。调用方法：
+```
+docker-compose run --it composer <后面就是composer命令>
+examples:
+docker-compose run --it composer create-project laravel/laravel .
+```
+
+## 容器开放的端口
 
 - **nginx** - `:8080`
 - **mysql** - `:3306`
