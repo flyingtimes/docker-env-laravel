@@ -19,9 +19,7 @@ mkdir src
 docker-compose run --rm composer laravel/laravel .
 # 在镜像里，laravel的配置文件中数据库连接配置需要做响应的修改 127.0.0.1->mysql，库名、用户名、密码也要根据docker-compose.yml的配置做相应修改才行
 docker-compose run --rm composer sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
-docker-compose run --rm composer sed -i "s/DB_DATABASE=/DB_DATABASE=laravel/g" /app/.env
-docker-compose run --rm composer sed -i "s/DB_USERNAME=/DB_USERNAME=root/g" /app/.env
-docker-compose run --rm composer sed -i "s/DB_PASSWORD=/DB_PASSWORD=secret/g" /app/.env
+docker-compose run --rm composer sed -i "s/DB_PASSWORD=/DB_PASSWORD=rootsecret/g" /app/.env
 ```
 
 ## 项目架构说明
