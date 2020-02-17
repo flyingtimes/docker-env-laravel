@@ -55,6 +55,8 @@ services:
     volumes:
       - ./src:/var/www
     working_dir: /var/www
+    depends_on:
+      - php
     networks:
       - laravel
 
@@ -66,6 +68,9 @@ services:
     volumes: 
       - ./src:/var/www
     working_dir: /var/www
+    depends_on:
+      - php
+      - mysql
     entrypoint: ['npm']
     networks: 
       - laravel
