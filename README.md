@@ -16,7 +16,7 @@ laravel基础功能导入
 # 创建项目目录
 mkdir src
 # 调用composer容器，运行laravel初始化命令，将自动通过阿里云镜像源拉取初始化代码
-docker-compose run --rm composer laravel/laravel .
+docker-compose run --rm composer create-project laravel/laravel .
 # 在镜像里，laravel的配置文件中数据库连接配置需要做响应的修改 127.0.0.1->mysql，密码也要根据docker-compose.yml的配置做相应修改才行
 docker-compose run --rm composer sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
 docker-compose run --rm composer sed -i "s/DB_PASSWORD=/DB_PASSWORD=rootsecret/g" /app/.env
